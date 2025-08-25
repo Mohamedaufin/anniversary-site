@@ -57,17 +57,17 @@ export default function Home() {
 
   // Add your photos here
   const photos = [
-    { src: "/image.png", alt: "Us together" },
     { src: "/image2.png", alt: "Special moment" },
+    { src: "/image3.png", alt: "Us together" },
     { src: "/image.png", alt: "Happy times" },
-    { src: "/image2.png", alt: "Memories" },
+    { src: "/image1.png", alt: "Memories" },
   ]
 
   // Change this message according to you
   const message = `Dear Arshewww,
 This journey with you has been the most beautiful adventure of my life. Every moment spent with you feels like a blessing, and I cherish each day we've been together.
 From our first meeting to today, you've filled my life with joy, laughter, and unconditional love. Your smile brightens my darkest days, and your love gives me strength when I need it most.
-As we celebrate another year together, I want you to know that my love for you grows stronger with each passing day. You are my best friend, my confidant, and my soulmate.
+As we celebrate another year together, I want you to know that my love for you grows stronger with each passing day. You are my everything.
 Happy Birthday, my love! Here's to many more years of creating beautiful memories together.
 With all my heart,
 Yours Lovingly,
