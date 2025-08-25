@@ -167,7 +167,8 @@ Mohamed Aufin A R`
                 transition={{ delay: 1.5 }}
                 className="text-center mt-16 mb-8 text-pink-600"
               >
-                <p className="text-lg font-medium">❤️ Piriyamaanavaluku, En Piriyaamana Kadhal ❤️</p>
+                <p className="text-lg font-medium"> Piriyamaanavaluku, En Piriyaamana Kadhal </p>
+                <p className="text-lg font-medium">❤️ En Piriyaadha Kadhal ❤️</p>
               </motion.footer>
             </motion.div>
           </>
