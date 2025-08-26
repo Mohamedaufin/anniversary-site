@@ -54,42 +54,42 @@ export default function Message({ message }) {
   }
 
   return (
-    
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="my-8 max-w-3xl mx-auto relative" // 🔥 Reduced margin (was my-20)
+      className="my-20 max-w-3xl mx-auto relative" // ⬅️ Reverted to original my-20
     >
       <motion.div
-                className="absolute -top-2 -left-8 md:-top-0 md:-left-36 w-32 h-32 text-5xl md:text-6xl"
-                animate={{
-                    y: [0, -15, 0],
-                    rotate: [0, 10, 0],
-                }}
-                transition={{
-                    duration: 4,
-                    repeat: Number.POSITIVE_INFINITY,
-                    ease: "easeInOut",
-                }}
-            >
-                💌
-            </motion.div>
-             <motion.div
-                className="absolute -bottom-16 right-30 md:-bottom-20 md:-right-40 text-5xl md:text-6xl"
-                animate={{
-                    y: [0, -15, 0],
-                    rotate: [0, -10, 0],
-                }}
-                transition={{
-                    duration: 4,
-                    repeat: Number.POSITIVE_INFINITY,
-                    ease: "easeInOut",
-                    delay: 1,
-                }}
-            >
-                💝
-            </motion.div>
+        className="absolute -top-2 -left-8 md:-top-0 md:-left-36 w-32 h-32 text-5xl md:text-6xl"
+        animate={{
+          y: [0, -15, 0],
+          rotate: [0, 10, 0],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        }}
+      >
+        💌
+      </motion.div>
+      <motion.div
+        className="absolute -bottom-16 right-30 md:-bottom-20 md:-right-40 text-5xl md:text-6xl"
+        animate={{
+          y: [0, -15, 0],
+          rotate: [0, -10, 0],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+          delay: 1,
+        }}
+      >
+        💝
+      </motion.div>
+
       {/* 🔘 Step 1: Show Button */}
       {!isButtonClicked && !showEnvelope && !isPopupOpen && (
         <div className="w-full flex justify-center">
