@@ -20,7 +20,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   const [showContent, setShowContent] = useState(false)
   const [showTapToReveal, setShowTapToReveal] = useState(false)
-   const [playSong, setPlaySong] = useState(false) // Uncomment this if you want to add a background song
+  const [playSong, setPlaySong] = useState(false) // Uncomment this if you want to add a background song
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -50,9 +50,9 @@ export default function Home() {
     setShowContent(true)
 
     // Uncomment this if you want to add a background song
-     setTimeout(() => {
-       setPlaySong(true)
-     }, 1000);
+    setTimeout(() => {
+      setPlaySong(true)
+    }, 1000)
   }
 
   // Add your photos here
@@ -71,7 +71,7 @@ As we celebrate another year together, I want you to know that my love for you g
 Happy Birthday, my love! Here's to many more years of creating beautiful memories together.
 With all my heart,
 Yours Lovingly,
-Mohamed Aufin A R`
+Mohamed Aufin A R 🖤`
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100">
@@ -124,10 +124,11 @@ Mohamed Aufin A R`
             <Countdown targetDate={ANNIVERSARY_DATE} onComplete={handleCountdownComplete} />
           </motion.div>
         ) : showTapToReveal ? (
-          <TapToReveal key="tap-to-reveal" onReveal={handleReveal} />) : (
+          <TapToReveal key="tap-to-reveal" onReveal={handleReveal} />
+        ) : (
           <>
             {/* Uncomment this if you want to add a background song */}
-            { <MusicPlayer playSong={playSong} />  }
+            {<MusicPlayer playSong={playSong} />}
             <motion.div
               key="content"
               initial={{ opacity: 0 }}
@@ -165,10 +166,9 @@ Mohamed Aufin A R`
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.5 }}
-                className="text-center mt-16 mb-8 text-pink-600"
+                className="text-center mt-10 mb-8 text-pink-600" // 🔥 Changed mt-16 → mt-10
               >
                 <p className="text-lg font-medium">❤️Piriyamaanavaluku, En Piriyaamana Kadhal❤️</p>
-            
               </motion.footer>
             </motion.div>
           </>

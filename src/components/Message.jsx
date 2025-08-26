@@ -2,15 +2,18 @@
 
 import { useState, useEffect, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Mail, Heart, Sparkles, RotateCcw } from "lucide-react"
+import { Mail, Heart, Sparkles, RotateCcw, ArrowRight } from "lucide-react"
 
 export default function Message({ message }) {
   const [currentText, setCurrentText] = useState("")
   const [showCursor, setShowCursor] = useState(true)
   const [isPopupOpen, setIsPopupOpen] = useState(false)
+  const [isButtonClicked, setIsButtonClicked] = useState(false)
+  const [showEnvelope, setShowEnvelope] = useState(false)
+
   const lines = message.split("\n")
 
-  // Typing effect inside popup
+  // Typing effect
   useEffect(() => {
     if (isPopupOpen) {
       let index = 0
@@ -21,18 +24,16 @@ export default function Message({ message }) {
         } else {
           clearInterval(timer)
           setShowCursor(false)
-
-          // ✅ Notify Android that typing is complete
           if (window.AndroidInterface && typeof window.AndroidInterface.showNextButton === "function") {
             window.AndroidInterface.showNextButton()
           }
         }
-      }, 35)
+      }, 29)
       return () => clearInterval(timer)
     }
   }, [isPopupOpen, message])
 
-  // Floating hearts positions and animations
+  // Floating hearts
   const floatingHearts = useMemo(() => {
     return Array.from({ length: 8 }).map(() => ({
       top: `${Math.random() * 100}%`,
@@ -45,6 +46,13 @@ export default function Message({ message }) {
 
   const typedLines = currentText.split("\n")
 
+  const handleButtonClick = () => {
+    setIsButtonClicked(true)
+    setTimeout(() => {
+      setShowEnvelope(true)
+    }, 600)
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -52,8 +60,39 @@ export default function Message({ message }) {
       transition={{ duration: 0.8 }}
       className="my-20 max-w-3xl mx-auto relative"
     >
-      {!isPopupOpen ? (
-        // CLOSED LETTER BOX
+      {/* 🔘 Step 1: Show Button */}
+      {!isButtonClicked && !showEnvelope && !isPopupOpen && (
+        <div className="w-full flex justify-center">
+          <motion.button
+            onClick={handleButtonClick}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-500 hover:via-purple-500 hover:to-indigo-500 text-white text-lg px-8 py-4 rounded-full shadow-xl border-2 border-white/70 transition-all duration-300 hover:scale-[103%]"
+          >
+            <motion.div className="flex items-center space-x-2" whileHover={{ x: 5 }}>
+              <span>One Last Thing</span>
+              <ArrowRight className="w-5 h-5" />
+            </motion.div>
+          </motion.button>
+        </div>
+      )}
+
+      {/* 🎬 Small shrink animation */}
+      {isButtonClicked && !showEnvelope && (
+        <div className="flex justify-center">
+          <motion.div
+            key="button-animation"
+            initial={{ opacity: 1, scale: 1 }}
+            animate={{ opacity: 0, scale: 0.5 }}
+            transition={{ duration: 0.6 }}
+            className="w-12 h-12 bg-pink-400 rounded-full"
+          />
+        </div>
+      )}
+
+      {/* ✉️ Step 2: Envelope with Click to Open */}
+      {showEnvelope && !isPopupOpen && (
         <div className="w-full flex justify-center">
           <motion.div
             key="envelope"
@@ -67,7 +106,7 @@ export default function Message({ message }) {
             transition={{ duration: 0.5 }}
           >
             <div className="w-80 h-52 bg-gradient-to-br from-pink-200 to-purple-200 rounded-2xl shadow-2xl border-2 border-pink-300 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-26 bg-gradient-to-br from-pink-300 to-purple-300 transform origin-top"></div>
+              <div className="absolute top-0 left-0 w-full h-26 bg-gradient-to-br from-pink-300 to-purple-300"></div>
               <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-br from-pink-100 to-purple-100"></div>
               <div className="absolute inset-0 flex items-center justify-center">
                 <Mail className="w-16 h-16 text-pink-500" />
@@ -88,8 +127,10 @@ export default function Message({ message }) {
             </div>
           </motion.div>
         </div>
-      ) : (
-        // POPUP LETTER
+      )}
+
+      {/* 💌 Step 3: Letter Popup */}
+      {isPopupOpen && (
         <AnimatePresence>
           <motion.div
             key="letter"
@@ -98,6 +139,10 @@ export default function Message({ message }) {
             exit={{ opacity: 0, scale: 0.2 }}
             transition={{ duration: 0.8, type: "spring" }}
             className="bg-white p-8 md:p-12 rounded-2xl shadow-2xl relative z-50"
+            style={{
+              height: "630px", // ✅ FIXED HEIGHT FROM SECOND CODE
+              minHeight: "630px", // ✅ Prevent shrinking
+            }}
           >
             {/* Decorative background */}
             <div className="absolute inset-0 bg-gradient-to-br from-pink-50 to-purple-50 opacity-50 pointer-events-none" />
@@ -128,7 +173,7 @@ export default function Message({ message }) {
             ))}
 
             {/* Typing text */}
-            <div className="relative z-10 text-gray-700 leading-relaxed space-y-4">
+            <div className="relative z-10 text-gray-700 leading-relaxed space-y-4 overflow-hidden">
               {lines.map((line, index) => {
                 const currentLineLength = typedLines.slice(0, index).join("\n").length
                 const remainingChars = currentText.length - currentLineLength
@@ -140,7 +185,9 @@ export default function Message({ message }) {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.7 + index * 0.08 }}
-                    className={`${line.trim() === "" ? "h-4" : ""} ${index === 0 ? "text-xl font-medium text-pink-600" : ""}`}
+                    className={`${line.trim() === "" ? "h-4" : ""} ${
+                      index === 0 ? "text-xl font-medium text-pink-600" : ""
+                    }`}
                   >
                     {displayText}
                     {index === typedLines.length - 1 && showCursor && (
@@ -168,11 +215,12 @@ export default function Message({ message }) {
                     setIsPopupOpen(false)
                     setCurrentText("")
                     setShowCursor(true)
+                    setIsButtonClicked(false)
+                    setShowEnvelope(false)
                   }}
                   className="inline-flex items-center gap-2 bg-white/60 text-pink-600 font-medium border border-pink-400 px-5 py-2 rounded-full hover:bg-pink-100 transition-all"
                 >
-                  <RotateCcw className="w-4 h-4" />
-                  Close Letter
+                  <RotateCcw className="w-4 h-4" /> Close Letter
                 </button>
               </motion.div>
             )}
