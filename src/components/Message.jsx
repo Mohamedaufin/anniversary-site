@@ -58,7 +58,7 @@ export default function Message({ message }) {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="my-20 max-w-3xl mx-auto relative"
+      className="my-8 max-w-3xl mx-auto relative" // 🔥 Reduced margin (was my-20)
     >
       {/* 🔘 Step 1: Show Button */}
       {!isButtonClicked && !showEnvelope && !isPopupOpen && (
