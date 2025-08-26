@@ -137,4 +137,3 @@ npm run dev
 Thanks for checking out this project! 💗  
 If you like it, **give it a ⭐** and share the love!
 
->>>>>>> 58809fa941d4569e2b16c2c8285761dadd1e0346
