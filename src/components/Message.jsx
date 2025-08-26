@@ -139,10 +139,6 @@ export default function Message({ message }) {
             exit={{ opacity: 0, scale: 0.2 }}
             transition={{ duration: 0.8, type: "spring" }}
             className="bg-white p-8 md:p-12 rounded-2xl shadow-2xl relative z-50"
-            style={{
-              height: "630px", // ✅ FIXED HEIGHT FROM SECOND CODE
-              minHeight: "630px", // ✅ Prevent shrinking
-            }}
           >
             {/* Decorative background */}
             <div className="absolute inset-0 bg-gradient-to-br from-pink-50 to-purple-50 opacity-50 pointer-events-none" />
@@ -172,19 +168,16 @@ export default function Message({ message }) {
               </motion.div>
             ))}
 
-            {/* Typing text */}
-            <div className="relative z-10 text-gray-700 leading-relaxed space-y-4 overflow-hidden">
+            {/* Typing text (NO JITTER) */}
+            <div className="relative z-10 text-gray-700 leading-relaxed space-y-4">
               {lines.map((line, index) => {
                 const currentLineLength = typedLines.slice(0, index).join("\n").length
                 const remainingChars = currentText.length - currentLineLength
                 const displayText = remainingChars > 0 ? line.slice(0, remainingChars) : ""
 
                 return (
-                  <motion.p
+                  <p
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.7 + index * 0.08 }}
                     className={`${line.trim() === "" ? "h-4" : ""} ${
                       index === 0 ? "text-xl font-medium text-pink-600" : ""
                     }`}
@@ -197,7 +190,7 @@ export default function Message({ message }) {
                         transition={{ duration: 0.8, repeat: Infinity }}
                       />
                     )}
-                  </motion.p>
+                  </p>
                 )
               })}
             </div>
