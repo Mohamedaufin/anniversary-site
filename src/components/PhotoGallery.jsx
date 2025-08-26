@@ -25,6 +25,19 @@ export default function PhotoGallery({ photos }) {
 
     const decorations = ["🌸", "💖", "✨", "💝", "💕", "🌺"]
 
+    // Added: Different object positions for each image
+    const objectPositions = [
+        "top left",
+        "top center",
+        "top right",
+        "center left",
+        "center",
+        "center right",
+        "bottom left",
+        "bottom center",
+        "bottom right",
+    ]
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -101,7 +114,8 @@ export default function PhotoGallery({ photos }) {
                                 alt={photo.alt}
                                 fill
                                 sizes="200"
-                                className="object-contain h-full transition-all duration-500"
+                                className="object-cover w-full transition-all duration-500"
+                                style={{ objectPosition: objectPositions[index % objectPositions.length] }}
                             />
 
                             {/* Overlay on hover */}
