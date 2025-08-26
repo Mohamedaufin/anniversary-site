@@ -163,7 +163,7 @@ export default function PhotoGallery({ photos }) {
                                 />
                             </div>
 
-                            {/* <motion.div
+                            { <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.3 }}
@@ -172,7 +172,7 @@ export default function PhotoGallery({ photos }) {
                                 <p className="text-lg font-medium text-pink-600 bg-white/80 mx-auto py-2 px-4 rounded-full inline-block">
                                     {selectedPhoto.alt}
                                 </p>
-                            </motion.div> */}
+                            </motion.div>}
 
                             <motion.button
                                 whileHover={{ scale: 1.1 }}
