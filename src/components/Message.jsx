@@ -18,6 +18,11 @@ export default function Message({ message }) {
       } else {
         clearInterval(timer)
         setShowCursor(false)
+
+        // ✅ Notify Android that typing is complete
+        if (window.AndroidInterface && typeof window.AndroidInterface.showNextButton === "function") {
+          window.AndroidInterface.showNextButton()
+        }
       }
     }, 35)
     return () => clearInterval(timer)
