@@ -64,7 +64,7 @@ npm run dev
 
 ## 🌐 Connect with Me
 
-- 💼 LinkedIn: [Anuj Chaudhary](https://linkedin.com/in/mohamedaufin)
+- 💼 LinkedIn: [Mohamed Aufin](https://www.linkedin.com/in/mohamed-aufin-400a07202/)
 ---
 
 Thanks for checking out this project! 💗  
@@ -137,4 +137,3 @@ npm run dev
 Thanks for checking out this project! 💗  
 If you like it, **give it a ⭐** and share the love!
 
->>>>>>> 58809fa941d4569e2b16c2c8285761dadd1e0346
