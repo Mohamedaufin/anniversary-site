@@ -94,8 +94,8 @@ const objectPositions = [
                         onClick={() => setSelectedPhoto(photo)}
                     >
                         <div
-                            className="absolute -top-6 -right-6 text-3xl "
-                           
+                            className="absolute -top-6 -right-6 text-3xl animate-float"
+                            style={{ animationDelay: `${index * 0.2}s` }}
                         >
                             {decorations[index % decorations.length]}
                         </div>
