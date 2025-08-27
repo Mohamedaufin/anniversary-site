@@ -44,6 +44,8 @@ export default function Message({ message }) {
     }))
   }, [])
 
+  const typedLines = currentText.split("\n")
+
   const handleButtonClick = () => {
     setIsButtonClicked(true)
     setTimeout(() => {
@@ -190,22 +192,31 @@ export default function Message({ message }) {
               </motion.div>
             ))}
 
-            {/* Typing text - FIXED spacing */}
-            <div
-              className="relative z-10 text-gray-700 leading-relaxed"
-              style={{
-                whiteSpace: "pre-line", // 👈 keeps \n line breaks but removes big gaps
-                lineHeight: "1.5em",    // 👈 consistent spacing
-              }}
-            >
-              {currentText}
-              {showCursor && (
-                <motion.span
-                  className="inline-block w-0.5 h-5 bg-purple-600 ml-1"
-                  animate={{ opacity: [0, 1, 0] }}
-                  transition={{ duration: 0.8, repeat: Infinity }}
-                />
-              )}
+            {/* Typing text (Jitter FIX) */}
+            <div className="relative z-10 text-gray-700 leading-relaxed space-y-4">
+              {lines.map((line, index) => {
+                const currentLineLength = typedLines.slice(0, index).join("\n").length
+                const remainingChars = currentText.length - currentLineLength
+                const displayText = remainingChars > 0 ? line.slice(0, remainingChars) : ""
+
+                return (
+                  <p
+                    key={index}
+                    className={`${line.trim() === "" ? "h-4" : "min-h-[1.5rem]"} ${
+                      index === 0 ? "text-xl font-medium text-pink-600" : ""
+                    }`}
+                  >
+                    {displayText || "\u00A0"}
+                    {index === typedLines.length - 1 && showCursor && (
+                      <motion.span
+                        className="inline-block w-0.5 h-5 bg-purple-600 ml-1"
+                        animate={{ opacity: [0, 1, 0] }}
+                        transition={{ duration: 0.8, repeat: Infinity }}
+                      />
+                    )}
+                  </p>
+                )
+              })}
             </div>
 
             {/* Close / Reset button */}
