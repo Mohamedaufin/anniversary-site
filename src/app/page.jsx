@@ -12,7 +12,7 @@ import FloatingElements from "@/components/FloatingElements"
 import TapToReveal from "@/components/TapToReveal"
 
 // Change this to your anniversary date
-const ANNIVERSARY_DATE = "2025-10-08T00:00:00"
+const ANNIVERSARY_DATE = "2025-05-25T00:00:00"
 // Change this to the date you got together
 const TOGETHER_DATE = "2023-05-25T00:00:00"
 
@@ -95,7 +95,7 @@ Mohamed Aufin A R 🖤`
               transition={{ delay: 0.5 }}
             >
               <div
-                className="absolute bottom-1/4 left-1/4 w-20 h-20 text-5xl animate-bounce"
+                className="absolute bottom-1/4 left-1/4 w-20 h-6 text-5xl animate-bounce"
                 style={{ animationDelay: "1.5s" }}
               >
                 💝
