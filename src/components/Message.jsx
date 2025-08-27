@@ -60,21 +60,29 @@ export default function Message({ message }) {
       transition={{ duration: 0.8 }}
       className="my-20 max-w-3xl mx-auto relative"
     >
-      <motion.div
-        className="absolute -bottom-16 right-30 md:-bottom-20 md:-right-40 text-5xl md:text-6xl"
-        animate={{
-          y: [0, -15, 0],
-          rotate: [0, -10, 0],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-          delay: 1,
-        }}
-      >
-        💝
-      </motion.div>
+      {/* 💌 Floating Hearts */}
+      <AnimatePresence>
+        {floatingHearts.map((heart, index) => (
+          <motion.div
+            key={index}
+            className="absolute"
+            style={{ top: heart.top, left: heart.left }}
+            initial={{ opacity: 0, y: 0 }}
+            animate={{
+              opacity: 1,
+              y: -100,
+              transition: {
+                duration: heart.duration,
+                delay: heart.delay,
+                ease: "easeInOut",
+              },
+            }}
+            exit={{ opacity: 0 }}
+          >
+            {heart.emoji}
+          </motion.div>
+        ))}
+      </AnimatePresence>
 
       {/* 🔘 Step 1: Show Button */}
       {!isButtonClicked && !showEnvelope && !isPopupOpen && (
