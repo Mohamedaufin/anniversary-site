@@ -24,20 +24,12 @@ export default function PhotoGallery({ photos }) {
     ]
 
     const decorations = ["🌸", "💖", "✨", "💝", "💕", "🌺"]
-
-    // Added: Different object positions for each image
-    const objectPositions = [
-        "top left",
-        "top center",
-        "top right",
-        "center left",
-        "center",
-        "center right",
-        "bottom left",
-        "bottom center",
-        "bottom right",
+const objectPositions = [
+        "40% 12%",  // first image
+        "30% 11%",  // second image
+        "50% 40%",  // third image
+        "30% 13%",   // fourth image
     ]
-
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -114,8 +106,9 @@ export default function PhotoGallery({ photos }) {
                                 alt={photo.alt}
                                 fill
                                 sizes="200"
-                                className="object-cover w-full transition-all duration-500"
+                               
                                 style={{ objectPosition: objectPositions[index % objectPositions.length] }}
+                                className="object-cover h-full transition-all duration-500"
                             />
 
                             {/* Overlay on hover */}
@@ -177,7 +170,7 @@ export default function PhotoGallery({ photos }) {
                                 />
                             </div>
 
-                            { <motion.div
+                            {<motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.3 }}
@@ -186,7 +179,7 @@ export default function PhotoGallery({ photos }) {
                                 <p className="text-lg font-medium text-pink-600 bg-white/80 mx-auto py-2 px-4 rounded-full inline-block">
                                     {selectedPhoto.alt}
                                 </p>
-                            </motion.div>}
+                            </motion.div> }
 
                             <motion.button
                                 whileHover={{ scale: 1.1 }}
