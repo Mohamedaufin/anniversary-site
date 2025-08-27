@@ -58,7 +58,7 @@ export default function Message({ message }) {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="my-20 max-w-3xl mx-auto relative"
+      className="mt-20 mb-12 max-w-3xl mx-auto relative"
     >
       
 

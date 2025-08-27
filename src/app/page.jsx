@@ -143,7 +143,7 @@ Mohamed Aufin A R 🖤`
                   stiffness: 100,
                   delay: 0.3,
                 }}
-                className="text-center mb-12 relative"
+                className="text-center m relative" // 🔥 Reduced mb-12 → mb-8
               >
                 <div className="absolute -top-2 -left-5 md:-left-10 text-5xl md:text-6xl animate-float">🎉</div>
                 <div className="absolute -bottom-10 -right-5 md:-bottom-14 md:-right-10 text-5xl md:text-6xl animate-float-delay">
@@ -166,7 +166,7 @@ Mohamed Aufin A R 🖤`
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.5 }}
-                className="text-center mt-0 mb-20 text-pink-600" // 🔥 Changed mt-16 → mt-10
+                className="text-center mt-0 mb-20 text-pink-600" // 🔥 Reduced spacing
               >
                 <p className="text-lg font-medium">❤️Piriyamaanavaluku, En Piriyaamana Kadhal❤️</p>
               </motion.footer>
