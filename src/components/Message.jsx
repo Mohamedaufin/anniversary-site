@@ -58,9 +58,8 @@ export default function Message({ message }) {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="my-20 max-w-3xl mx-auto relative" // ⬅️ Reverted to original my-20
+      className="my-20 max-w-3xl mx-auto relative"
     >
-     
       <motion.div
         className="absolute -bottom-16 right-30 md:-bottom-20 md:-right-40 text-5xl md:text-6xl"
         animate={{
@@ -185,7 +184,7 @@ export default function Message({ message }) {
               </motion.div>
             ))}
 
-            {/* Typing text (NO JITTER) */}
+            {/* Typing text (Jitter FIX) */}
             <div className="relative z-10 text-gray-700 leading-relaxed space-y-4">
               {lines.map((line, index) => {
                 const currentLineLength = typedLines.slice(0, index).join("\n").length
@@ -195,11 +194,11 @@ export default function Message({ message }) {
                 return (
                   <p
                     key={index}
-                    className={`${line.trim() === "" ? "h-4" : ""} ${
+                    className={`${line.trim() === "" ? "h-4" : "min-h-[1.5rem]"} ${
                       index === 0 ? "text-xl font-medium text-pink-600" : ""
                     }`}
                   >
-                    {displayText}
+                    {displayText || "\u00A0"}
                     {index === typedLines.length - 1 && showCursor && (
                       <motion.span
                         className="inline-block w-0.5 h-5 bg-purple-600 ml-1"
