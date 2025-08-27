@@ -28,7 +28,7 @@ const objectPositions = [
         "40% 12%",  // first image
         "30% 11%",  // second image
         "50% 40%",  // third image
-        "30% 13%",   // fourth image
+        "0% 13%",   // fourth image
     ]
     return (
         <motion.div
@@ -94,8 +94,8 @@ const objectPositions = [
                         onClick={() => setSelectedPhoto(photo)}
                     >
                         <div
-                            className="absolute -top-6 -right-6 text-3xl animate-float"
-                            style={{ animationDelay: `${index * 0.2}s` }}
+                            className="absolute -top-6 -right-6 text-3xl "
+                           
                         >
                             {decorations[index % decorations.length]}
                         </div>
