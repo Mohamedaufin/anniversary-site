@@ -166,7 +166,7 @@ Mohamed Aufin A R 🖤`
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.5 }}
-                className="text-center mt-25 mb-25 text-pink-600" // 🔥 Changed mt-16 → mt-10
+                className="text-center mt-0 mb-12 text-pink-600" // 🔥 Changed mt-16 → mt-10
               >
                 <p className="text-lg font-medium">❤️Piriyamaanavaluku, En Piriyaamana Kadhal❤️</p>
               </motion.footer>
