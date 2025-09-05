@@ -86,7 +86,15 @@ Yours Lovingly,
 Mohamed Aufin A R 🖤`
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100">
+    <main
+      className="min-h-screen overflow-x-hidden"
+      style={{
+        background:
+          showLoader1 || showSecretCode
+            ? "radial-gradient(circle at top left, #1a0b1f, #000000 80%)"
+            : "linear-gradient(to bottom right, #fce7f3, #f3e8ff, #dbeafe)",
+      }}
+    >
       {/* 🔥 Show FloatingElements ONLY when not showing SecretCode */}
       {!showSecretCode && <FloatingElements />}
 
@@ -137,7 +145,9 @@ Mohamed Aufin A R 🖤`
               <h1 className="text-4xl md:text-5xl py-1.5 font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 mb-4 animate-gradient">
                 Our Anniversary is Coming!
               </h1>
-              <p className="text-xl text-purple-700 font-medium">The countdown to our special day ❤️</p>
+              <p className="text-xl text-purple-700 font-medium">
+                The countdown to our special day ❤️
+              </p>
             </motion.div>
 
             <Countdown targetDate={ANNIVERSARY_DATE} onComplete={handleCountdownComplete} />
@@ -171,7 +181,9 @@ Mohamed Aufin A R 🖤`
                 <h1 className="text-4xl md:text-6xl py-1 md:py-2 px-6 font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 mb-3 animate-gradient">
                   Happy Anniversary!
                 </h1>
-                <p className="text-xl text-purple-700 font-medium">Every moment with you is a blessing ❤️</p>
+                <p className="text-xl text-purple-700 font-medium">
+                  Every moment with you is a blessing ❤️
+                </p>
               </motion.div>
 
               <DaysTogether startDate={TOGETHER_DATE} animationDuration={3} />
@@ -186,7 +198,9 @@ Mohamed Aufin A R 🖤`
                 transition={{ delay: 1.5 }}
                 className="text-center mt-0 mb-16 text-pink-600"
               >
-                <p className="text-lg font-medium">❤️Piriyamaanavaluku, En Piriyaamana Kadhal❤️</p>
+                <p className="text-lg font-medium">
+                  ❤️Piriyamaanavaluku, En Piriyaamana Kadhal❤️
+                </p>
               </motion.footer>
             </motion.div>
           </>

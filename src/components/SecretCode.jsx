@@ -1,21 +1,20 @@
 "use client"
-
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Lock, Heart } from "lucide-react"
+import { Lock } from "lucide-react"
 
 export default function SecretCode({ onUnlock }) {
   const [code, setCode] = useState("")
   const [isWrong, setIsWrong] = useState(false)
 
   const secretCode = String.fromCharCode(50, 48, 52, 57) // "2049"
- const heartColors = [
-  "#fdfdfd", // Pearl White
-  "#1a1a1a", // Onyx Black
-  "#60a5fa", // Sky Baby Blue
-  "#fb7185", // Blush Baby Pink
-]
-// typed hearts colors
+
+  const heartColors = [
+    "#fdfdfd", // Pearl White
+    "#1a1a1a", // Onyx Black
+    "#60a5fa", // Sky Baby Blue
+    "#fb7185", // Blush Baby Pink
+  ]
 
   const handleChange = (e) => {
     setCode(e.target.value)
@@ -54,7 +53,6 @@ export default function SecretCode({ onUnlock }) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
       className="min-h-screen flex flex-col items-center justify-center text-white px-6 py-8"
-      style={{ background: "radial-gradient(circle at top left, #1a0b1f, #000000 80%)" }}
     >
       <div className="w-full max-w-md">
         <motion.div
@@ -69,7 +67,11 @@ export default function SecretCode({ onUnlock }) {
             <div className="space-y-6">
               <motion.div
                 animate={{ scale: [1, 1.05, 1], rotate: [0, 5, -5, 0] }}
-                transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                transition={{
+                  duration: 4,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "easeInOut",
+                }}
                 className="relative"
               >
                 <Lock className="w-16 h-16 text-pink-400 mx-auto drop-shadow-lg" />
@@ -86,46 +88,38 @@ export default function SecretCode({ onUnlock }) {
                   Enter the code to unlock my heart💕
                 </motion.p>
                 <p className="text-white/50 text-sm">
-                  <span className="text-black/80">💡</span>
-                  Hint: My phone password
+                  <span className="text-black/80">💡</span> Hint: My phone password
                 </p>
               </div>
             </div>
 
-            {/* Removed onSubmit, handled only by button */}
+            {/* Input hearts */}
             <div className="space-y-6">
               <div className="w-full px-6 py-4 bg-white/5 border-2 rounded-2xl text-center text-3xl font-semibold tracking-[0.5em] focus-within:outline-none focus-within:ring-4 transition-all relative">
-                {/* Display typed hearts + remaining placeholders */}
-                {Array.from({ length: maxLength }).map((_, i) => {
-                  if (i < code.length) {
-                    return (
-                      <CurvedHeart
-                        key={i}
-                        color={heartColors[i % heartColors.length]}
-                        filled={true}
-                        className="inline w-7 h-7 mx-1"
-                      />
-                    )
-                  } else {
-                    return (
-                      <CurvedHeart
-                        key={i}
-                        color="rgba(255,255,255,0.4)"
-                        filled={false}
-                        className="inline w-7 h-7 mx-1"
-                      />
-                    )
-                  }
-                })}
-
-                {/* Invisible input */}
+                {Array.from({ length: maxLength }).map((_, i) =>
+                  i < code.length ? (
+                    <CurvedHeart
+                      key={i}
+                      color={heartColors[i % heartColors.length]}
+                      filled
+                      className="inline w-7 h-7 mx-1"
+                    />
+                  ) : (
+                    <CurvedHeart
+                      key={i}
+                      color="rgba(255,255,255,0.4)"
+                      filled={false}
+                      className="inline w-7 h-7 mx-1"
+                    />
+                  )
+                )}
                 <input
                   type="text"
                   value={code}
                   onChange={handleChange}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                      e.preventDefault() // disable Enter key
+                      e.preventDefault()
                     }
                   }}
                   maxLength={maxLength}
@@ -154,7 +148,7 @@ export default function SecretCode({ onUnlock }) {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-red-300 text-sm bg-red-500/10 rounded-full px-4 py-2 border border-red-400/20"
               >
-                💕Try again, my love! 
+                💕Try again, my love!
               </motion.p>
             )}
           </div>
