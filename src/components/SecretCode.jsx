@@ -9,11 +9,18 @@ export default function SecretCode({ onUnlock }) {
 
   const secretCode = String.fromCharCode(50, 48, 52, 57) // "2049"
 
+  // 🎨 Heart color options (light → dark)
   const heartColors = [
-    { id: "white", light: "#ffffff", dark: "#d9d9d9" }, // Pearl White
-    { id: "black", light: "#2c2c2c", dark: "#0a0a0a" }, // Onyx Black
-    { id: "blue", light: "#93c5fd", dark: "#1e3a8a" }, // Luxury Baby Blue
-    { id: "pink", light: "#f9a8d4", dark: "#9d174d" }, // Luxury Baby Pink
+    { id: "lavender", light:  "#bf8cf7ff", dark: "#6d28d9" },     // Mystic Lavender
+    { id: "burgundy", light: "#800020", dark: "#4b0f24" },     // Burgundy Wine
+    { id: "blue", light: "#93c5fd", dark: "#1e3a8a" },         // Luxury Baby Blue
+    { id: "pink", light: "#f9a8d4", dark: "#9d174d" },         // Luxury Baby Pink
+    { id: "gold", light: "#fde68a", dark: "#b45309" },         // Royal Gold
+    { id: "emerald", light: "#a7f3d0", dark: "#065f46" },      // Emerald Green
+    
+    { id: "peach", light: "#fed7aa", dark: "#9a3412" },        // Soft Peach
+    { id: "ruby", light: "#fecaca", dark: "#7f1d1d" },         // Deep Ruby
+    { id: "teal", light: "#99f6e4", dark: "#134e4a" },         // Tropical Teal
   ]
 
   const handleChange = (e) => setCode(e.target.value)
@@ -30,7 +37,7 @@ export default function SecretCode({ onUnlock }) {
 
   const maxLength = 4
 
-  // ✅ 3D glossy heart
+  // ✅ 2-color gradient (light → dark)
   const CurvedHeart = ({ colorSet, filled = false, className = "" }) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -42,23 +49,23 @@ export default function SecretCode({ onUnlock }) {
           <stop offset="0%" stopColor={colorSet.light} />
           <stop offset="100%" stopColor={colorSet.dark} />
         </linearGradient>
-        <filter id={`bevel-${colorSet.id}`} x="-50%" y="-50%" width="200%" height="200%">
-          <feOffset dx="0" dy="1" />
-          <feGaussianBlur stdDeviation="0.8" result="offset-blur" />
-          <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse" />
-          <feFlood floodColor="rgba(0,0,0,0.4)" result="color" />
-          <feComposite operator="in" in="color" in2="inverse" result="shadow" />
-          <feComposite operator="over" in="shadow" in2="SourceGraphic" />
-        </filter>
       </defs>
       <path
         d="M12 21s-6.5-4.33-9.33-8.16C.67 9.67 2.67 4 7.5 4c2.1 0 3.9 1.33 4.5 3.1C12.6 5.33 14.4 4 16.5 4c4.83 0 6.83 5.67 4.83 8.84C18.5 16.67 12 21 12 21z"
         fill={filled ? `url(#grad-${colorSet.id})` : "none"}
         stroke={filled ? "none" : colorSet.dark}
         strokeWidth="2"
-        filter={filled ? `url(#bevel-${colorSet.id})` : "none"}
       />
     </svg>
+  )
+
+  // ✅ Always white heart (separate set)
+  const WhiteHeart = ({ className = "" }) => (
+    <CurvedHeart
+      className={className}
+      filled
+      colorSet={{ id: "white", light: "#ffffff", dark: "#d9d9d9" }}
+    />
   )
 
   return (
@@ -147,9 +154,9 @@ export default function SecretCode({ onUnlock }) {
                 className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-4 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
-                  <CurvedHeart className="w-5 h-5" colorSet={heartColors[0]} filled />
+                  <WhiteHeart className="w-5 h-5" />
                   Unlock My Heart
-                  <CurvedHeart className="w-5 h-5" colorSet={heartColors[0]} filled />
+                  <WhiteHeart className="w-5 h-5" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-400 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </motion.button>
