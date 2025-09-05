@@ -10,15 +10,13 @@ export default function SecretCode({ onUnlock }) {
   const secretCode = String.fromCharCode(50, 48, 52, 57) // "2049"
 
   const heartColors = [
-    "#fdfdfd", // Pearl White
-    "#1a1a1a", // Onyx Black
-    "#60a5fa", // Sky Baby Blue
-    "#fb7185", // Blush Baby Pink
+    { id: "white", light: "#ffffff", dark: "#d9d9d9" }, // Pearl White
+    { id: "black", light: "#2c2c2c", dark: "#0a0a0a" }, // Onyx Black
+    { id: "blue", light: "#93c5fd", dark: "#1e3a8a" }, // Luxury Baby Blue
+    { id: "pink", light: "#f9a8d4", dark: "#9d174d" }, // Luxury Baby Pink
   ]
 
-  const handleChange = (e) => {
-    setCode(e.target.value)
-  }
+  const handleChange = (e) => setCode(e.target.value)
 
   const handleUnlock = () => {
     if (code === secretCode) {
@@ -32,17 +30,34 @@ export default function SecretCode({ onUnlock }) {
 
   const maxLength = 4
 
-  // ✅ Custom rounded heart SVG
-  const CurvedHeart = ({ color = "currentColor", filled = false, className = "" }) => (
+  // ✅ 3D glossy heart
+  const CurvedHeart = ({ colorSet, filled = false, className = "" }) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      fill={filled ? color : "none"}
-      stroke={filled ? "none" : color}
-      strokeWidth="2"
       className={className}
     >
-      <path d="M12 21s-6.5-4.33-9.33-8.16C.67 9.67 2.67 4 7.5 4c2.1 0 3.9 1.33 4.5 3.1C12.6 5.33 14.4 4 16.5 4c4.83 0 6.83 5.67 4.83 8.84C18.5 16.67 12 21 12 21z" />
+      <defs>
+        <linearGradient id={`grad-${colorSet.id}`} x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor={colorSet.light} />
+          <stop offset="100%" stopColor={colorSet.dark} />
+        </linearGradient>
+        <filter id={`bevel-${colorSet.id}`} x="-50%" y="-50%" width="200%" height="200%">
+          <feOffset dx="0" dy="1" />
+          <feGaussianBlur stdDeviation="0.8" result="offset-blur" />
+          <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse" />
+          <feFlood floodColor="rgba(0,0,0,0.4)" result="color" />
+          <feComposite operator="in" in="color" in2="inverse" result="shadow" />
+          <feComposite operator="over" in="shadow" in2="SourceGraphic" />
+        </filter>
+      </defs>
+      <path
+        d="M12 21s-6.5-4.33-9.33-8.16C.67 9.67 2.67 4 7.5 4c2.1 0 3.9 1.33 4.5 3.1C12.6 5.33 14.4 4 16.5 4c4.83 0 6.83 5.67 4.83 8.84C18.5 16.67 12 21 12 21z"
+        fill={filled ? `url(#grad-${colorSet.id})` : "none"}
+        stroke={filled ? "none" : colorSet.dark}
+        strokeWidth="2"
+        filter={filled ? `url(#bevel-${colorSet.id})` : "none"}
+      />
     </svg>
   )
 
@@ -100,16 +115,16 @@ export default function SecretCode({ onUnlock }) {
                   i < code.length ? (
                     <CurvedHeart
                       key={i}
-                      color={heartColors[i % heartColors.length]}
+                      colorSet={heartColors[i % heartColors.length]}
                       filled
-                      className="inline w-7 h-7 mx-1"
+                      className="inline w-8 h-8 mx-1"
                     />
                   ) : (
                     <CurvedHeart
                       key={i}
-                      color="rgba(255,255,255,0.4)"
+                      colorSet={{ id: "empty", light: "#999", dark: "#444" }}
                       filled={false}
-                      className="inline w-7 h-7 mx-1"
+                      className="inline w-8 h-8 mx-1"
                     />
                   )
                 )}
@@ -118,9 +133,7 @@ export default function SecretCode({ onUnlock }) {
                   value={code}
                   onChange={handleChange}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault()
-                    }
+                    if (e.key === "Enter") e.preventDefault()
                   }}
                   maxLength={maxLength}
                   className="absolute opacity-0 w-full h-full top-0 left-0 cursor-text"
@@ -134,9 +147,9 @@ export default function SecretCode({ onUnlock }) {
                 className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-4 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
-                  <CurvedHeart className="w-5 h-5" color="white" filled />
+                  <CurvedHeart className="w-5 h-5" colorSet={heartColors[0]} filled />
                   Unlock My Heart
-                  <CurvedHeart className="w-5 h-5" color="white" filled />
+                  <CurvedHeart className="w-5 h-5" colorSet={heartColors[0]} filled />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-400 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </motion.button>
