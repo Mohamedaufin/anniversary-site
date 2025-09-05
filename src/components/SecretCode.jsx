@@ -15,8 +15,7 @@ export default function SecretCode({ onUnlock }) {
     setCode(e.target.value)
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleUnlock = () => {
     if (code === secretCode) {
       onUnlock()
     } else {
@@ -73,21 +72,27 @@ export default function SecretCode({ onUnlock }) {
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Removed onSubmit, handled only by button */}
+            <div className="space-y-6">
               <div className="w-full px-6 py-4 bg-white/5 border-2 rounded-2xl text-center text-3xl font-semibold tracking-[0.5em] focus-within:outline-none focus-within:ring-4 transition-all relative">
                 {/* Display typed hearts + remaining placeholders */}
                 {Array.from({ length: maxLength }).map((_, i) => {
                   if (i < code.length) {
                     return (
-                      <span key={i} style={{ color: heartColors[i % heartColors.length] }}>
-                        ❤
-                      </span>
+                      <Heart
+                        key={i}
+                        className="inline w-7 h-7 mx-1"
+                        style={{ color: heartColors[i % heartColors.length] }}
+                        fill="currentColor"
+                      />
                     )
                   } else {
                     return (
-                      <span key={i} className="text-white/40">
-                        ❤
-                      </span>
+                      <Heart
+                        key={i}
+                        className="inline w-7 h-7 mx-1 text-white/40"
+                        fill="none"
+                      />
                     )
                   }
                 })}
@@ -97,6 +102,11 @@ export default function SecretCode({ onUnlock }) {
                   type="text"
                   value={code}
                   onChange={handleChange}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault() // disable Enter key
+                    }
+                  }}
                   maxLength={maxLength}
                   className="absolute opacity-0 w-full h-full top-0 left-0 cursor-text"
                 />
@@ -105,7 +115,7 @@ export default function SecretCode({ onUnlock }) {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                type="submit"
+                onClick={handleUnlock}
                 className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-4 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
@@ -115,7 +125,7 @@ export default function SecretCode({ onUnlock }) {
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-400 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </motion.button>
-            </form>
+            </div>
 
             {isWrong && (
               <motion.p
