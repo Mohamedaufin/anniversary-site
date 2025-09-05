@@ -9,7 +9,13 @@ export default function SecretCode({ onUnlock }) {
   const [isWrong, setIsWrong] = useState(false)
 
   const secretCode = String.fromCharCode(50, 48, 52, 57) // "2049"
-  const heartColors = ["#f472b6", "#facc15", "#60a5fa", "#a78bfa"] // typed hearts colors
+ const heartColors = [
+  "#fdfdfd", // Pearl White
+  "#1a1a1a", // Onyx Black
+  "#60a5fa", // Sky Baby Blue
+  "#fb7185", // Blush Baby Pink
+]
+// typed hearts colors
 
   const handleChange = (e) => {
     setCode(e.target.value)
@@ -26,6 +32,20 @@ export default function SecretCode({ onUnlock }) {
   }
 
   const maxLength = 4
+
+  // ✅ Custom rounded heart SVG
+  const CurvedHeart = ({ color = "currentColor", filled = false, className = "" }) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill={filled ? color : "none"}
+      stroke={filled ? "none" : color}
+      strokeWidth="2"
+      className={className}
+    >
+      <path d="M12 21s-6.5-4.33-9.33-8.16C.67 9.67 2.67 4 7.5 4c2.1 0 3.9 1.33 4.5 3.1C12.6 5.33 14.4 4 16.5 4c4.83 0 6.83 5.67 4.83 8.84C18.5 16.67 12 21 12 21z" />
+    </svg>
+  )
 
   return (
     <motion.div
@@ -79,19 +99,20 @@ export default function SecretCode({ onUnlock }) {
                 {Array.from({ length: maxLength }).map((_, i) => {
                   if (i < code.length) {
                     return (
-                      <Heart
+                      <CurvedHeart
                         key={i}
+                        color={heartColors[i % heartColors.length]}
+                        filled={true}
                         className="inline w-7 h-7 mx-1"
-                        style={{ color: heartColors[i % heartColors.length] }}
-                        fill="currentColor"
                       />
                     )
                   } else {
                     return (
-                      <Heart
+                      <CurvedHeart
                         key={i}
-                        className="inline w-7 h-7 mx-1 text-white/40"
-                        fill="none"
+                        color="rgba(255,255,255,0.4)"
+                        filled={false}
+                        className="inline w-7 h-7 mx-1"
                       />
                     )
                   }
@@ -119,9 +140,9 @@ export default function SecretCode({ onUnlock }) {
                 className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-4 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
-                  <Heart className="w-5 h-5 fill-current" />
+                  <CurvedHeart className="w-5 h-5" color="white" filled />
                   Unlock My Heart
-                  <Heart className="w-5 h-5 fill-current" />
+                  <CurvedHeart className="w-5 h-5" color="white" filled />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-400 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </motion.button>
