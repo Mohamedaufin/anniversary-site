@@ -28,7 +28,7 @@ export default function Message({ message }) {
             window.AndroidInterface.showNextButton()
           }
         }
-      }, 29)
+      }, 1)
       return () => clearInterval(timer)
     }
   }, [isPopupOpen, message])
