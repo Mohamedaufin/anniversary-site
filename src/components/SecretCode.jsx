@@ -110,7 +110,7 @@ export default function SecretCode({ onUnlock }) {
                   Enter the code to unlock my heart💕
                 </motion.p>
                 <p className="text-white/50 text-sm">
-                  <span className="text-black/80">💡</span> Hint: My phone password
+                  <span className="text-black/80">💡</span> Hint: Anniversary aniku solren
                 </p>
               </div>
             </div>
