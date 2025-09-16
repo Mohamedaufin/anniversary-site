@@ -7,7 +7,7 @@ export default function SecretCode({ onUnlock }) {
   const [code, setCode] = useState("")
   const [isWrong, setIsWrong] = useState(false)
 
-  const secretCode = String.fromCharCode(50, 51, 57, 48) // "2048"
+  const secretCode = String.fromCharCode(50, 51, 57, 48) // "2390"
 
   // 🎨 Heart color options (light → dark)
   const heartColors = [
