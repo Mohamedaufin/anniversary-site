@@ -168,7 +168,7 @@ export default function SecretCode({ onUnlock }) {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-red-300 text-sm bg-red-500/10 rounded-full px-4 py-2 border border-red-400/20"
               >
-                💕Try again, my love!
+                Try again doli 💕
               </motion.p>
             )}
           </div>
