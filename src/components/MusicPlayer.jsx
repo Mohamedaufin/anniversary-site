@@ -22,6 +22,7 @@ export default function MusicPlayer({ playSong }) {
         };
     }, []);
 
+    // Play/pause based on playSong prop
     useEffect(() => {
         if (playSong && audioRef.current && audioRef.current.paused) {
             audioRef.current.play().then(() => {
@@ -32,6 +33,22 @@ export default function MusicPlayer({ playSong }) {
         }
     }, [playSong]);
 
+    // Pause music when user leaves tab, resume if back and playSong=true
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (!audioRef.current) return;
+
+            if (document.hidden) {
+                audioRef.current.pause();
+                setIsPlaying(false);
+            } else if (playSong) {
+                audioRef.current.play().then(() => setIsPlaying(true)).catch(err => console.log("Autoplay blocked:", err));
+            }
+        };
+
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+        return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+    }, [playSong]);
 
     const togglePlayback = () => {
         const audio = audioRef.current;
@@ -83,7 +100,6 @@ export default function MusicPlayer({ playSong }) {
                 >
                     {isPlaying ? <Volume2 size={22} /> : <VolumeX size={22} />}
                 </motion.div>
-
             </motion.button>
         </motion.div>
     )
