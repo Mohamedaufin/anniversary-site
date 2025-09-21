@@ -199,7 +199,7 @@ Mohamed Aufin A R 🖤`
                 className="text-center mt-0 mb-16 text-pink-600"
               >
                 <p className="text-lg font-medium">
-                  ❤️Piriyamaanavaluku, En Piriyaamana Kadhal❤️
+                  ❤️Piriyamaanavaluku,En Piriyaamana Kadhal❤️
                 </p>
               </motion.footer>
             </motion.div>
