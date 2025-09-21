@@ -10,73 +10,60 @@ export default function MusicPlayer({ playSong }) {
     const wasPlayingRef = useRef(false) // track if audio was playing before tab hidden
 
     useEffect(() => {
-        const audio = new Audio("/bg.mp3")
-        audio.loop = true
-        audio.volume = 0.5
-        audio.preload = "auto"
-
-        // 🔹 Silent play/pause to unlock autoplay
-        audio.volume = 0
-        audio.play()
-            .then(() => {
-                audio.pause()
-                audio.volume = 0.5
-                audioRef.current = audio
-            })
-            .catch(() => {
-                audioRef.current = audio
-            })
+        audioRef.current = new Audio("/bg.mp3");
+        audioRef.current.loop = true;
+        audioRef.current.volume = 0.5;
 
         const handleVisibilityChange = () => {
-            if (!audioRef.current) return
+            if (!audioRef.current) return;
             if (document.hidden) {
                 // pause when tab is hidden
-                wasPlayingRef.current = !audioRef.current.paused
-                audioRef.current.pause()
+                wasPlayingRef.current = !audioRef.current.paused;
+                audioRef.current.pause();
             } else {
                 // resume if it was playing before
                 if (wasPlayingRef.current) {
-                    audioRef.current.play().catch((err) => console.error("Playback error:", err))
+                    audioRef.current.play().catch((err) => console.error("Playback error:", err));
                 }
             }
-        }
+        };
 
-        document.addEventListener("visibilitychange", handleVisibilityChange)
+        document.addEventListener("visibilitychange", handleVisibilityChange);
 
         return () => {
             if (audioRef.current) {
-                audioRef.current.pause()
-                audioRef.current = null
+                audioRef.current.pause();
+                audioRef.current = null;
             }
-            document.removeEventListener("visibilitychange", handleVisibilityChange)
-        }
-    }, [])
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+        };
+    }, []);
 
     useEffect(() => {
         if (playSong && audioRef.current && audioRef.current.paused) {
             audioRef.current.play().then(() => {
-                setIsPlaying(true)
+                setIsPlaying(true);
             }).catch((err) => {
-                console.error("Playback error:", err)
-            })
+                console.error("Playback error:", err);
+            });
         }
-    }, [playSong])
+    }, [playSong]);
 
 
     const togglePlayback = () => {
-        const audio = audioRef.current
-        if (!audio) return
+        const audio = audioRef.current;
+        if (!audio) return;
 
         if (isPlaying) {
-            audio.pause()
-            setIsPlaying(false)
+            audio.pause();
+            setIsPlaying(false);
         } else {
             audio.play().catch((err) => {
-                console.error("Playback error:", err)
-            })
-            setIsPlaying(true)
+                console.error("Playback error:", err);
+            });
+            setIsPlaying(true);
         }
-    }
+    };
 
     return (
         <motion.div
