@@ -7,22 +7,38 @@ import { Volume2, VolumeX } from "lucide-react"
 export default function MusicPlayer({ playSong }) {
     const [isPlaying, setIsPlaying] = useState(false)
     const audioRef = useRef(null)
+    const wasPlayingRef = useRef(false) // track if audio was playing before tab hidden
 
     useEffect(() => {
         audioRef.current = new Audio("/bg.mp3");
         audioRef.current.loop = true;
         audioRef.current.volume = 0.5;
 
+        const handleVisibilityChange = () => {
+            if (!audioRef.current) return;
+            if (document.hidden) {
+                // pause when tab is hidden
+                wasPlayingRef.current = !audioRef.current.paused;
+                audioRef.current.pause();
+            } else {
+                // resume if it was playing before
+                if (wasPlayingRef.current) {
+                    audioRef.current.play().catch((err) => console.error("Playback error:", err));
+                }
+            }
+        };
+
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+
         return () => {
-            // clean up
             if (audioRef.current) {
                 audioRef.current.pause();
                 audioRef.current = null;
             }
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
         };
     }, []);
 
-    // Play/pause based on playSong prop
     useEffect(() => {
         if (playSong && audioRef.current && audioRef.current.paused) {
             audioRef.current.play().then(() => {
@@ -33,22 +49,6 @@ export default function MusicPlayer({ playSong }) {
         }
     }, [playSong]);
 
-    // Pause music when user leaves tab, resume if back and playSong=true
-    useEffect(() => {
-        const handleVisibilityChange = () => {
-            if (!audioRef.current) return;
-
-            if (document.hidden) {
-                audioRef.current.pause();
-                setIsPlaying(false);
-            } else if (playSong) {
-                audioRef.current.play().then(() => setIsPlaying(true)).catch(err => console.log("Autoplay blocked:", err));
-            }
-        };
-
-        document.addEventListener("visibilitychange", handleVisibilityChange);
-        return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
-    }, [playSong]);
 
     const togglePlayback = () => {
         const audio = audioRef.current;
@@ -100,6 +100,7 @@ export default function MusicPlayer({ playSong }) {
                 >
                     {isPlaying ? <Volume2 size={22} /> : <VolumeX size={22} />}
                 </motion.div>
+
             </motion.button>
         </motion.div>
     )

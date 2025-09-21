@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react";
 
-export default function Loader({ onComplete }) { // ✅ Added onComplete prop
+export default function Loader() {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
@@ -20,13 +20,7 @@ export default function Loader({ onComplete }) { // ✅ Added onComplete prop
         }));
 
         setItems(generated);
-
-        // ✅ Call onComplete after loader duration (match your Loader animation timing)
-        const timer = setTimeout(() => {
-            if (onComplete) onComplete(); // 🎵 Trigger song start
-        }, 4000); // 🔥 Loader duration in ms
-        return () => clearTimeout(timer);
-    }, [onComplete]);
+    }, []);
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-pink-200 via-purple-100 to-blue-200 z-50">
@@ -80,6 +74,7 @@ export default function Loader({ onComplete }) { // ✅ Added onComplete prop
                             ease: "easeInOut",
                         }}
                     >
+
                         <div className="absolute inset-0 rounded-full border-4 border-pink-300 border-t-pink-500 animate-spin"></div>
                         <motion.div
                             className="absolute inset-0 flex items-center justify-center"
