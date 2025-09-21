@@ -7,35 +7,17 @@ import { Volume2, VolumeX } from "lucide-react"
 export default function MusicPlayer({ playSong }) {
     const [isPlaying, setIsPlaying] = useState(false)
     const audioRef = useRef(null)
-    const wasPlayingRef = useRef(false) // track if audio was playing before tab hidden
 
     useEffect(() => {
         audioRef.current = new Audio("/bg.mp3");
         audioRef.current.loop = true;
         audioRef.current.volume = 0.5;
 
-        const handleVisibilityChange = () => {
-            if (!audioRef.current) return;
-            if (document.hidden) {
-                // pause when tab is hidden
-                wasPlayingRef.current = !audioRef.current.paused;
-                audioRef.current.pause();
-            } else {
-                // resume if it was playing before
-                if (wasPlayingRef.current) {
-                    audioRef.current.play().catch((err) => console.error("Playback error:", err));
-                }
-            }
-        };
-
-        document.addEventListener("visibilitychange", handleVisibilityChange);
-
         return () => {
             if (audioRef.current) {
                 audioRef.current.pause();
                 audioRef.current = null;
             }
-            document.removeEventListener("visibilitychange", handleVisibilityChange);
         };
     }, []);
 
@@ -49,11 +31,33 @@ export default function MusicPlayer({ playSong }) {
         }
     }, [playSong]);
 
+    // ✅ Handle auto pause/resume on tab switch
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            const audio = audioRef.current;
+            if (!audio) return;
+            if (document.hidden) {
+                if (!audio.paused) {
+                    audio.pause();
+                    setIsPlaying(false);
+                }
+            } else {
+                if (playSong && audio.paused) {
+                    audio.play().then(() => setIsPlaying(true))
+                        .catch((err) => console.error("Resume error:", err));
+                }
+            }
+        };
+
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+        return () => {
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+        };
+    }, [playSong]);
 
     const togglePlayback = () => {
         const audio = audioRef.current;
         if (!audio) return;
-
         if (isPlaying) {
             audio.pause();
             setIsPlaying(false);
@@ -82,25 +86,17 @@ export default function MusicPlayer({ playSong }) {
                 <motion.div
                     animate={
                         isPlaying
-                            ? {
-                                scale: [1, 1.2, 1],
-                                rotate: [0, 5, 0, -5, 0],
-                            }
+                            ? { scale: [1, 1.2, 1], rotate: [0, 5, 0, -5, 0] }
                             : { scale: 1 }
                     }
                     transition={
                         isPlaying
-                            ? {
-                                duration: 1.5,
-                                repeat: Number.POSITIVE_INFINITY,
-                                ease: "easeInOut",
-                            }
+                            ? { duration: 1.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }
                             : {}
                     }
                 >
                     {isPlaying ? <Volume2 size={22} /> : <VolumeX size={22} />}
                 </motion.div>
-
             </motion.button>
         </motion.div>
     )
