@@ -13,7 +13,7 @@ export default function MusicPlayer({ playSong }) {
         audioRef.current = new Audio("/bg.mp3");
         audioRef.current.loop = true;
         audioRef.current.volume = 0.5;
-        audioRef.current.play().then(() => audioRef.current.pause());
+        audioRef.current.preload = "auto"; 
 
         const handleVisibilityChange = () => {
             if (!audioRef.current) return;
