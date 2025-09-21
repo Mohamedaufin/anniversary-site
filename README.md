@@ -33,7 +33,7 @@ Follow these steps to run the project locally:
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/Mohamedaufin/anniversary-site
+git clone https://github.com/Mohamedaufin/anniversary-site.git
 cd anniversary-site
 ```
 
