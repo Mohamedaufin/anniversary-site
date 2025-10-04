@@ -7,7 +7,7 @@ export default function SecretCode({ onUnlock }) {
   const [code, setCode] = useState("")
   const [isWrong, setIsWrong] = useState(false)
 
-  const secretCode = String.fromCharCode(50, 51, 57, 48) // "2390"
+  const secretCode = String.fromCharCode(50, 48, 57, 57) // "2390"
 
   // 🎨 Heart color options (light → dark)
   const heartColors = [
@@ -110,7 +110,7 @@ export default function SecretCode({ onUnlock }) {
                   Enter the code to unlock my heart💕
                 </motion.p>
                 <p className="text-white/50 text-sm">
-                  <span className="text-black/80">💡</span> Hint: Already Solliyachu myluuu
+                  <span className="text-black/80">💡</span> Hint: Our Anniversary Date
                 </p>
               </div>
             </div>
