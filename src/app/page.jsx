@@ -80,7 +80,7 @@ export default function Home() {
 This journey with you has been the most beautiful adventure of my life. Every moment spent with you feels like a blessing, and I cherish each day we've been together.
 From our first meeting to today, you've filled my life with joy, laughter, and unconditional love. Your smile brightens my darkest days, and your love gives me strength when I need it most.
 As we celebrate another year together, I want you to know that my love for you grows stronger with each passing day. You are my everything.
-Happy Birthday, my love! Here's to many more years of creating beautiful memories together.
+Happy Anniversary, my Love! Here's to many more years of creating beautiful memories together.
 With all my heart,
 Yours Lovingly,
 Mohamed Aufin A R 🖤`
