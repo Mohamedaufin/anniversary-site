@@ -174,7 +174,7 @@ export default function Countdown({ targetDate, onComplete }) {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
             >
-                Until October 5 ❤️
+                Until October 8 ❤️
             </motion.p>
         </div>
     )
