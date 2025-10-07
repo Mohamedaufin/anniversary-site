@@ -179,10 +179,10 @@ Mohamed Aufin A R 🖤`
                 </div>
 
                 <h1 className="text-4xl md:text-6xl py-1 md:py-2 px-6 font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 mb-3 animate-gradient">
-                  Happy Anniversary!
+                  Happy Birthday!
                 </h1>
                 <p className="text-xl text-purple-700 font-medium">
-                  Every moment with you is a blessing ❤️
+                  Every day with you is special ❤️
                 </p>
               </motion.div>
 
