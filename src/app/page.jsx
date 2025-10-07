@@ -80,9 +80,9 @@ export default function Home() {
 This journey with you has been the most beautiful adventure of my life. Every moment spent with you feels like a blessing, and I cherish each day we've been together.
 From our first meeting to today, you've filled my life with joy, laughter, and unconditional love. Your smile brightens my darkest days, and your love gives me strength when I need it most.
 As we celebrate another year together, I want you to know that my love for you grows stronger with each passing day. You are my everything.
-Happy Anniversary, my Love! Here's to many more years of creating beautiful memories together.
+Happy Birthday, my Love! Here's to many more years of creating beautiful memories together, I love youuu diiii Pattuuuuu Raniiiiiii...✨💖
 With all my heart,
-Yours Lovingly,
+Yours Only,
 Mohamed Aufin A R 🖤`
 
   return (
@@ -143,10 +143,10 @@ Mohamed Aufin A R 🖤`
               </div>
 
               <h1 className="text-4xl md:text-5xl py-1.5 font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 mb-4 animate-gradient">
-                Our Anniversary is Coming!
+                Your Birthday is Coming!
               </h1>
               <p className="text-xl text-purple-700 font-medium">
-                The countdown to our special day ❤️
+                The countdown to your special day ❤️
               </p>
             </motion.div>
 

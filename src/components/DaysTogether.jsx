@@ -150,8 +150,8 @@ export default function DaysTogether({ startDate, animationDuration = 3 }) {
                         transition={{ delay: 1.2 }}
                         className="text-center text-lg text-gray-600 max-w-2xl"
                     >
-                        Every single day has been a blessing. From our first hello to today, each moment with you has been magical.
-                        Here's to countless more days filled with love, laughter, and beautiful memories!
+                        Every day with you feels like a dream. From our first hello in Edhuga Street, each moment with you has been magical.
+                        Here's to many more years filled with love, playtoys, and our beautiful memories!
                     </motion.p>
 
                     <motion.div
